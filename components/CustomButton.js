@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { windowWidth, windowHeight } from '../utils/Dimensions';
 
@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: windowHeight/20,
+        // height: windowHeight/20,
+        height: Platform.OS === 'ios' ? windowHeight/20 : windowHeight/15,
         borderRadius: 5,
         backgroundColor: '#009387',
         marginVertical: 10,

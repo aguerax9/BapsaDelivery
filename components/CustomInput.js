@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { windowWidth, windowHeight } from '../utils/Dimensions';
 
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 5,
         width: '90%',
-        height: windowHeight/25,
+        // height: windowHeight/25,
+        height: Platform.OS === 'ios' ? windowHeight/25 : windowHeight/15,
         borderWidth: 1,
         borderColor: '#A9ACB0',
         borderRadius: 5,
