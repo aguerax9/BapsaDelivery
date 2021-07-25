@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     Button,
-    KeyboardAvoidingView,
     Platform,
     SafeAreaView,
     StyleSheet,
@@ -24,7 +23,7 @@ const LoginScreen = ({navigation}) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     return(
-        <KeyboardAvoidingView style={styles.main_container} behavior='padding' >
+        <View style={styles.main_container}>
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome</Text>
             </View>
@@ -64,7 +63,7 @@ const LoginScreen = ({navigation}) => {
                     />
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     );
 }
 
