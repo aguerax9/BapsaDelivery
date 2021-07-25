@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "593333072119",
+    "project_id": "rn-app-e1544",
+    "storage_bucket": "rn-app-e1544.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593333072119:android:af0364561276b48a55a3f2",
+        "android_client_info": {
+          "package_name": "com.aguerax9.rnapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593333072119-inibhf1tcivicppmeaptlisilg69p6qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBliOn5x7pHeNG75ongv4jch09iLbTmLNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593333072119-inibhf1tcivicppmeaptlisilg69p6qe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "593333072119-3b8l9tt1m0fbkr752mo8l6ick4dts97r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reactnative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
