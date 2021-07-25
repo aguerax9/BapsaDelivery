@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
     Button,
     KeyboardAvoidingView,
+    Platform,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -74,10 +75,10 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-start',
-        paddingTop: 50,
+        justifyContent: Platform.OS === 'ios' ? 'flex-start' : 'flex-end',
+        paddingTop: Platform.OS === 'ios' ? 50 : 0,
         paddingHorizontal: 20,
-        // paddingBottom: 30,
+        paddingBottom: Platform.OS === 'ios' ? 0 : 30,
     },
     footer: {
         flex: 3,
