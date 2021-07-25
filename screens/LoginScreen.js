@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
     Button,
+    KeyboardAvoidingView,
     Platform,
     SafeAreaView,
     StyleSheet,
@@ -27,7 +28,7 @@ const LoginScreen = ({navigation}) => {
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome</Text>
             </View>
-            <View style={styles.footer}>
+            <KeyboardAvoidingView style={styles.footer} behavior='padding'>
                 <Text style={styles.text_footer}>Email</Text>
                 <View style={styles.input_section}>
                     <FontAwesome name="user-o" size={20} />
@@ -62,7 +63,7 @@ const LoginScreen = ({navigation}) => {
                         onPress={() => navigation.navigate("Sign up")}
                     />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     );
 }
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         paddingBottom: Platform.OS === 'ios' ? 0 : 30,
     },
     footer: {
-        flex: 3,
+        flex: 6,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
