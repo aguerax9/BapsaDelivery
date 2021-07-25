@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
     Button,
+    KeyboardAvoidingView,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -22,7 +23,7 @@ const LoginScreen = ({navigation}) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     return(
-        <View style={styles.main_container}>
+        <KeyboardAvoidingView style={styles.main_container} behavior='padding' >
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome</Text>
             </View>
@@ -62,7 +63,7 @@ const LoginScreen = ({navigation}) => {
                     />
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -73,9 +74,10 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
         paddingHorizontal: 20,
-        paddingBottom: 30,
+        // paddingBottom: 30,
     },
     footer: {
         flex: 3,

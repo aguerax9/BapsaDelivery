@@ -84,9 +84,10 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
         paddingHorizontal: 20,
-        paddingBottom: 30,
+        // paddingBottom: 30,
     },
     footer: {
         flex: 6,
