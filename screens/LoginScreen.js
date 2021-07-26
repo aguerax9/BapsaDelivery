@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-    Button,
     KeyboardAvoidingView,
     Platform,
-    SafeAreaView,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -12,6 +10,8 @@ import {
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+
+import { AuthContext } from '../navigation/AuthProvider';
 
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
@@ -22,6 +22,8 @@ const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+    const { login } = useContext(AuthContext);
 
     return(
         <View style={styles.main_container}>
@@ -57,7 +59,7 @@ const LoginScreen = ({navigation}) => {
                     <Text style={styles.text_pwd}>Show/Hide password</Text>
                 </TouchableOpacity>
                 <View style={styles.button_section}>
-                    <CustomButton title="Sign in" />
+                    <CustomButton title="Sign in" onPress={() => login(email, pwd)} />
                     <CustomButton_v1 
                         title="Sign up" 
                         onPress={() => navigation.navigate("Sign up")}

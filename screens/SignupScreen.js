@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     Button,
     KeyboardAvoidingView,
@@ -12,6 +12,8 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
+import { AuthContext } from '../navigation/AuthProvider';
+
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import CustomButton_v1 from '../components/CustomButton_v1';
@@ -22,6 +24,8 @@ const LoginScreen = ({navigation}) => {
     const [pwd, setPwd] = useState('');
     const [cpwd, setCpwd] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+    const { register } = useContext(AuthContext);
 
     return(
         <View style={styles.main_container}>
@@ -70,7 +74,7 @@ const LoginScreen = ({navigation}) => {
                 </TouchableOpacity>
 
                 <View style={styles.button_section}>
-                    <CustomButton title="Sign up" />
+                    <CustomButton title="Sign up" onPress={() => register(email, pwd)} />
                 </View>
             </KeyboardAvoidingView>
         </View>

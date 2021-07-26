@@ -7,12 +7,11 @@ import {
   View,
 } from 'react-native';
 
-import Routes from './navigation/Routes'
-import LoginScreen from './screens/LoginScreen'
+import Provider from './navigation/index';
 
 const App = () => {
   return (
-    <Routes />
+    <Provider />
   );
 }
 
