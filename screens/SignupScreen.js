@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react';
 import {
+    Alert,
     Button,
+    Image,
     KeyboardAvoidingView,
-    SafeAreaView,
+    Platform,
+    ScrollView,
     StyleSheet,
     Text,
+    TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
@@ -14,117 +18,198 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { AuthContext } from '../navigation/AuthProvider';
 
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import CustomButton_v1 from '../components/CustomButton_v1';
-
-const LoginScreen = ({navigation}) => {
+const SignupScreen = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
-    const [cpwd, setCpwd] = useState('');
+    const [showPwd, setShowPwd] = useState(false);
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-    const { register } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
     return(
-        <View style={styles.main_container}>
-            <View style={styles.header}>
-                <Text style={styles.text_header}>Register now</Text>
-            </View>
-            <KeyboardAvoidingView style={styles.footer} behavior='padding'>
-                <Text style={styles.text_footer}>Email</Text>
-                <View style={styles.input_section}>
-                    <FontAwesome name="user-o" size={20} />
-                    <CustomInput
-                        inputValue={email}
-                        placeholderText="Your email"
-                        keyboardType='email-address'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        onChangeText={(input) => setEmail(input)}
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
+            <ScrollView style={styles.main_container}>
+                <View style={styles.header}>
+                    <Image 
+                        source={require('../images/logo-removebg-preview.png')}
+                        style={styles.logo}
                     />
+                    <Text style={styles.text_header_msg}>Devenez membre BapsaDelivery et accédez à un large catalogue de boissons alcoolisées de première qualité.</Text>
                 </View>
-
-                <Text style={[styles.text_footer, {marginTop: 20}]}>Password</Text>
-                <View style={styles.input_section}>
-                    <Feather name="lock" size={20} />
-                    <CustomInput
-                        inputValue={pwd}
-                        placeholderText="Your password"
-                        secureTextEntry={secureTextEntry}
-                        autoCapitalize='none'
-                        onChangeText={(input) => setPwd(input)}
+                <View style={styles.body}>
+                    <TextInput 
+                        style={styles.text_input}
+                        placeholder="Nom"
                     />
-                </View>
-
-                <Text style={[styles.text_footer, {marginTop: 20}]}>Confirm password</Text>
-                <View style={styles.input_section}>
-                    <Feather name="lock" size={20} />
-                    <CustomInput
-                        inputValue={cpwd}
-                        placeholderText="Your password"
-                        secureTextEntry={secureTextEntry}
-                        autoCapitalize='none'
-                        onChangeText={(input) => setCpwd(input)}
+                    <TextInput 
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        placeholder="Prénom"
                     />
+                    <TextInput 
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        placeholder="Date de naissance"
+                    />
+                    <TextInput 
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        placeholder="Adresse e-mail"
+                    />
+                    <TextInput 
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        placeholder="Mot de passe"
+                        secureTextEntry={showPwd ? 'none' : secureTextEntry}
+                        autoCapitalize='none'
+                    />
+                    <TextInput 
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        placeholder="Confirmer le mot de passe"
+                        secureTextEntry={showPwd ? 'none' : secureTextEntry}
+                        autoCapitalize='none'
+                    />
+                    <View style={styles.btn_display_pwd}>
+                        <TouchableOpacity onPress={() => setShowPwd(!showPwd)}>
+                            <Feather 
+                                name={showPwd ? "eye" : "eye-off"}
+                                size={25} 
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.btn_pwd_forgot}>
+                        <TouchableOpacity>
+                            <Text style={styles.text_pwd_forgot}>Mot de passe oublié ?</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.terms_section}>
+                        <Text style={styles.text_terms}>
+                            En vous inscrivant, vous acceptez de vous conformer à la {''}
+                            <Text 
+                                style={styles.btn_text_terms}
+                                onPress={() => Alert.alert("Politique de confidentialité")}
+                            >
+                                Politique de confidentialité
+                            </Text>
+                            {''} et aux {''}
+                            <Text 
+                                style={styles.btn_text_terms}
+                                onPress={() => Alert.alert("Conditions générales")}
+                            >
+                                Conditions générales
+                            </Text>
+                            {''} de {''}
+                            <Text style={{ color: '#C0392B' }}>
+                                agueragroup
+                            </Text>
+                            .
+                        </Text>
+                    </View>
+                    <View style={styles.login_section}>
+                        <TouchableOpacity style={styles.btn_login}>
+                            <Text style={styles.text_btn_login}>S'inscrire</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.terms_section, { marginBottom: 40 }]}>
+                        <Text style={styles.text_terms}>
+                            Vous avez déjà un compte ? {''}
+                            <Text 
+                                style={styles.btn_text_terms}
+                                onPress={() => navigation.goBack()}
+                            >
+                                Connectez-vous
+                            </Text>
+                            .
+                        </Text>
+                    </View>
                 </View>
-                <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)} >
-                    <Text style={styles.text_pwd}>Show/Hide password</Text>
-                </TouchableOpacity>
-
-                <View style={styles.button_section}>
-                    <CustomButton title="Sign up" onPress={() => register(email, pwd)} />
-                </View>
-            </KeyboardAvoidingView>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: '#009387',
+        backgroundColor: '#FFFFFF',
+    },
+    logo: {
+        width: 200,
+        height: 100,
     },
     header: {
         flex: 1,
-        justifyContent: Platform.OS === 'ios' ? 'flex-start' : 'flex-end',
-        paddingTop: Platform.OS === 'ios' ? 50 : 0,
-        paddingHorizontal: 20,
-        paddingBottom: Platform.OS === 'ios' ? 0 : 30,
-    },
-    footer: {
-        flex: 6,
-        backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 30,
+        paddingTop: 40, // to verify
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 5,
     },
     text_header: {
-        color: '#fff',
+        color: '#000000',
         fontWeight: 'bold',
         fontSize: 30,
+        textAlign: 'center',
     },
-    text_footer: {
-        color: '#05375a',
-        fontSize: 18,
+    text_header_msg: {
+        textAlign: 'center',
+        color: '#ABABAB',
     },
-    text_pwd: {
-        color: '#006ee6',
-        fontSize: 14,
-        marginTop: 10,
-        textAlign: 'right',
+    body: {
+        flex: 3,
+        paddingTop: 40, // to verify
+        justifyContent: 'center',
+        marginHorizontal: 20,
     },
-    input_section: {
-        marginTop: 10,
+    text_input: {
+        borderWidth: 0.5,
+        borderColor: '#ABABAB',
+        borderRadius: 5,
+        height: 40,
+        width: '100%',
+        paddingHorizontal: 10,
+    },
+    btn_display_pwd: {
+        flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
+        paddingTop: 10,
     },
-    button_section: {
-        marginTop: 50,
-    }
+    btn_pwd_forgot: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingTop: 30,
+    },
+    text_pwd_forgot: {
+        color: '#C0392B',
+    },
+    terms_section: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 40,
+    },
+    text_terms: {
+        textAlign: 'center',
+        color: '#ABABAB',
+    },
+    btn_text_terms: {
+        textDecorationLine: 'underline',
+    },
+    login_section: {
+        paddingTop: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    btn_login: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        width: '100%',
+        backgroundColor: '#C0392B',
+        borderRadius: 5,
+    },
+    text_btn_login: {
+        color: '#FFFFFF',
+        fontSize: 20,
+    },
 });
 
-export default LoginScreen;
+export default SignupScreen;

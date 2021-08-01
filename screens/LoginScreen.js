@@ -18,14 +18,11 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { AuthContext } from '../navigation/AuthProvider';
 
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import CustomButton_v1 from '../components/CustomButton_v1';
-
 const LoginScreen = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
+    const [showPwd, setShowPwd] = useState(false);
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const { login } = useContext(AuthContext);
@@ -48,7 +45,17 @@ const LoginScreen = ({navigation}) => {
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
                         placeholder="Mot de passe"
+                        secureTextEntry={showPwd ? 'none' : secureTextEntry}
+                        autoCapitalize='none'
                     />
+                    <View style={styles.btn_display_pwd}>
+                        <TouchableOpacity onPress={() => setShowPwd(!showPwd)}>
+                            <Feather 
+                                name={showPwd ? "eye" : "eye-off"}
+                                size={25} 
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.btn_pwd_forgot}>
                         <TouchableOpacity>
                             <Text style={styles.text_pwd_forgot}>Mot de passe oublié ?</Text>
@@ -87,7 +94,7 @@ const LoginScreen = ({navigation}) => {
                             Vous n'avez pas de compte ? {''}
                             <Text 
                                 style={styles.btn_text_terms}
-                                onPress={() => Alert.alert("Inscription")}
+                                onPress={() => navigation.push("Sign up")}
                             >
                                 Inscrivez-vous
                             </Text>
@@ -136,11 +143,17 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 10,
     },
+    btn_display_pwd: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingTop: 10,
+    },
     btn_pwd_forgot: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        paddingTop: 30,
+        paddingTop: 10,
     },
     text_pwd_forgot: {
         color: '#C0392B',
@@ -175,21 +188,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20,
     },
-    text_pwd: {
-        color: '#006ee6',
-        fontSize: 14,
-        marginTop: 10,
-        textAlign: 'right',
-    },
-    input_section: {
-        marginTop: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    button_section: {
-        marginTop: 50,
-    }
 });
 
 export default LoginScreen;
