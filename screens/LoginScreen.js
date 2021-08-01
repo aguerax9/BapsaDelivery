@@ -29,7 +29,7 @@ const LoginScreen = ({navigation}) => {
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const login = (email, pwd) => {
+    const login = () => {
         if (email.length != 0 && pwd.length != 0) { // needed for android version
             setLoading(true)
             auth()
@@ -126,7 +126,7 @@ const LoginScreen = ({navigation}) => {
                         </Text>
                     </View>
                     <View style={styles.login_section}>
-                        <TouchableOpacity style={styles.btn_login} onPress={() => login(email, pwd)}>
+                        <TouchableOpacity style={styles.btn_login} onPress={() => login()}>
                             { loading ? (<ActivityIndicator size='small' color='#FFFFFF' />) :  <Text style={styles.text_btn_login}>Connexion</Text>}
                         </TouchableOpacity>
                     </View>
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     main_container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
+        // marginBottom: 20,
     },
     logo: {
         width: 200,
