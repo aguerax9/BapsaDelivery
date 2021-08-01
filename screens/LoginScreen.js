@@ -45,7 +45,9 @@ const LoginScreen = ({navigation}) => {
                     }
                 });
         } else {
+            setError(true)
             console.log("Veuillez remplir tous les champs.");
+            setErrorMsg("Veuillez remplir tous les champs.")
         }
     }
 
