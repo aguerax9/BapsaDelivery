@@ -30,23 +30,30 @@ const LoginScreen = ({navigation}) => {
     const [loading, setLoading] = useState(false);
 
     const login = (email, pwd) => {
-        setLoading(true)
-        auth()
-            .signInWithEmailAndPassword(email, pwd)
-            .catch(error => {
-                console.log(error.message)
-                setLoading(false)
-                setError(true)
-                if (error.code !== "auth/too-many-requests") {
-                    setErrorMsg("Votre adresse e-mail ou votre mot de passe n'est pqs correct(e).")
-                } else {
-                    setErrorMsg("Veuillez réessayer dans quelques instants.")
-                }
-            });
+        if (email.length != 0 && pwd.length != 0) { // needed for android version
+            setLoading(true)
+            auth()
+                .signInWithEmailAndPassword(email, pwd)
+                .catch(error => {
+                    console.log(error.message)
+                    setLoading(false)
+                    setError(true)
+                    if (error.code !== "auth/too-many-requests") {
+                        setErrorMsg("Votre adresse e-mail ou votre mot de passe n'est pqs correct(e).")
+                    } else {
+                        setErrorMsg("Veuillez réessayer dans quelques instants.")
+                    }
+                });
+        } else {
+            console.log("Veuillez remplir tous les champs.");
+        }
     }
 
     return(
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
+        <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+        >
             <ScrollView style={styles.main_container}>
                 <View style={styles.header}>
                     <Image 
