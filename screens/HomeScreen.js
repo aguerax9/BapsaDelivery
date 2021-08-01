@@ -5,11 +5,11 @@ import { AuthContext } from '../navigation/AuthProvider';
 
 const HomeScreen = () => {
 
-    const { logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     return(
         <View>
-            <Text>Welcome</Text>
+            <Text>Welcome {user.email}</Text>
             <Button title="logout" onPress={() => logout()} />
         </View>
     );
