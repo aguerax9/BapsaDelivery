@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     Button,
     Image,
@@ -13,6 +14,7 @@ import {
     View,
 } from 'react-native';
 
+import auth from '@react-native-firebase/auth';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -23,8 +25,25 @@ const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [showPwd, setShowPwd] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const { login } = useContext(AuthContext);
+    const login = (email, pwd) => {
+        setLoading(true)
+        auth()
+            .signInWithEmailAndPassword(email, pwd)
+            .catch(error => {
+                console.log(error.message)
+                setLoading(false)
+                setError(true)
+                if (error.code !== "auth/too-many-requests") {
+                    setErrorMsg("Votre adresse e-mail ou votre mot de passe n'est pqs correct(e).")
+                } else {
+                    setErrorMsg("Veuillez réessayer dans quelques instants.")
+                }
+            });
+    }
 
     return(
         <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
@@ -37,15 +56,29 @@ const LoginScreen = ({navigation}) => {
                     <Text style={styles.text_header}>Service de livraison d'alcool à domicile</Text>
                 </View>
                 <View style={styles.body}>
+                    { error? (<Text style={styles.text_error}>{errorMsg}</Text>) : null }
                     <TextInput 
-                        style={styles.text_input}
+                        style={[styles.text_input, { marginTop: 20 }]}
+                        value={email}
                         placeholder="Adresse e-mail"
+                        keyboardType='email-address'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        onChangeText={(input) => {
+                            setEmail(input)
+                            setError(false)
+                        }}
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
+                        value={pwd}
                         placeholder="Mot de passe"
                         secureTextEntry={showPwd ? false : true}
                         autoCapitalize='none'
+                        onChangeText={(input) => {
+                            setPwd(input)
+                            setError(false)
+                        }}
                     />
                     <View style={styles.btn_display_pwd}>
                         <TouchableOpacity onPress={() => setShowPwd(!showPwd)}>
@@ -84,8 +117,8 @@ const LoginScreen = ({navigation}) => {
                         </Text>
                     </View>
                     <View style={styles.login_section}>
-                        <TouchableOpacity style={styles.btn_login}>
-                            <Text style={styles.text_btn_login}>Connexion</Text>
+                        <TouchableOpacity style={styles.btn_login} onPress={() => login(email, pwd)}>
+                            { loading ? (<ActivityIndicator size='small' color='#FFFFFF' />) :  <Text style={styles.text_btn_login}>Connexion</Text>}
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.terms_section, { marginBottom: 40 }]}>
@@ -133,6 +166,10 @@ const styles = StyleSheet.create({
         paddingTop: 40, // to verify
         justifyContent: 'center',
         marginHorizontal: 20,
+    },
+    text_error: {
+        textAlign: 'center',
+        color: 'red',
     },
     text_input: {
         borderWidth: 0.5,

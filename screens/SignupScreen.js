@@ -51,13 +51,20 @@ const SignupScreen = ({navigation}) => {
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
+                        value={email}
                         placeholder="Adresse e-mail"
+                        keyboardType='email-address'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        onChangeText={(input) => setEmail(input)}
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
+                        value={pwd}
                         placeholder="Mot de passe"
                         secureTextEntry={showPwd ? false : true}
                         autoCapitalize='none'
+                        onChangeText={(input) => setPwd(input)}
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
