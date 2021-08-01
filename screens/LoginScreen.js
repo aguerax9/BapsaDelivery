@@ -47,7 +47,7 @@ const LoginScreen = ({navigation}) => {
                     setLoading(false)
                     setError(true)
                     if (error.code !== "auth/too-many-requests") {
-                        setErrorMsg("Votre adresse e-mail ou votre mot de passe n'est pqs correct(e).")
+                        setErrorMsg("Votre adresse e-mail ou votre mot de passe n'est pas correct(e).")
                     } else {
                         setErrorMsg("Veuillez réessayer dans quelques instants.")
                     }

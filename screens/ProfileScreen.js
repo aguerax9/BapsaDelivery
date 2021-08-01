@@ -3,14 +3,15 @@ import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AuthContext } from '../navigation/AuthProvider';
 
-const HomeScreen = () => {
+const ProfileScreen = () => {
 
     const { user, logout } = useContext(AuthContext);
 
     return(
         <ScrollView contentContainerStyle={{flex: 1, backgroundColor: '#FFFFFF'}}>
             <View style={styles.main_container}>
-                <Text>Bienvenue</Text>
+                <Text>{user.email}</Text>
+                <Button title="logout" onPress={() => logout()} />
             </View>
         </ScrollView>
     );
@@ -24,4 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default ProfileScreen;
