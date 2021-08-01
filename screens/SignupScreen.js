@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
     Alert,
+    ActivityIndicator,
     Button,
     Image,
     KeyboardAvoidingView,
@@ -13,6 +14,7 @@ import {
     View,
 } from 'react-native';
 
+import auth from '@react-native-firebase/auth';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -22,9 +24,42 @@ const SignupScreen = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
+    const [confirmPwd, setConfirmPwd] = useState('')
     const [showPwd, setShowPwd] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const { login } = useContext(AuthContext);
+    const register = () => {
+        if (email.length != 0 && pwd.length != 0 && confirmPwd.length != 0) {
+            if (pwd === confirmPwd) {
+                setLoading(true)
+                auth()
+                .createUserWithEmailAndPassword(email, pwd)
+                .catch(error => {
+                    console.log(error.message)
+                    setLoading(false)
+                    setError(true)
+                    if (error.code === "auth/invalid-email") {
+                        setErrorMsg("Cette adresse e-mail n'est pas valide.")
+                    }
+                    if (error.code === "auth/email-already-in-use") {
+                        setErrorMsg("Cette adresse e-mail existe déjà.")
+                    }
+                    if (error.code === "auth/weak-password") {
+                        setErrorMsg("Le mot de passe est trop vulnérable.")
+                    }
+                });
+            } else {
+                setError(true)
+                setErrorMsg("Vérifiez le mot de passe.")
+            }
+        } else {
+            setError(true)
+            console.log("Veuillez remplir tous les champs.");
+            setErrorMsg("Veuillez remplir tous les champs.")
+        }
+    }
 
     return(
         <KeyboardAvoidingView 
@@ -40,8 +75,9 @@ const SignupScreen = ({navigation}) => {
                     <Text style={styles.text_header_msg}>Devenez membre BapsaDelivery et accédez à un large catalogue de boissons alcoolisées de première qualité.</Text>
                 </View>
                 <View style={styles.body}>
+                    { error? (<Text style={styles.text_error}>{errorMsg}</Text>) : null }
                     <TextInput 
-                        style={styles.text_input}
+                        style={[styles.text_input, { marginTop: 20 }]}
                         placeholder="Nom"
                     />
                     <TextInput 
@@ -59,7 +95,10 @@ const SignupScreen = ({navigation}) => {
                         keyboardType='email-address'
                         autoCapitalize='none'
                         autoCorrect={false}
-                        onChangeText={(input) => setEmail(input)}
+                        onChangeText={(input) => {
+                            setEmail(input)
+                            setError(false)
+                        }}
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
@@ -67,13 +106,21 @@ const SignupScreen = ({navigation}) => {
                         placeholder="Mot de passe"
                         secureTextEntry={showPwd ? false : true}
                         autoCapitalize='none'
-                        onChangeText={(input) => setPwd(input)}
+                        onChangeText={(input) => {
+                            setPwd(input)
+                            setError(false)
+                        }}
                     />
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
+                        value={confirmPwd}
                         placeholder="Confirmer le mot de passe"
                         secureTextEntry={showPwd ? false : true}
                         autoCapitalize='none'
+                        onChangeText={(input) => {
+                            setConfirmPwd(input)
+                            setError(false)
+                        }}
                     />
                     <View style={styles.btn_display_pwd}>
                         <TouchableOpacity onPress={() => setShowPwd(!showPwd)}>
@@ -112,8 +159,8 @@ const SignupScreen = ({navigation}) => {
                         </Text>
                     </View>
                     <View style={styles.login_section}>
-                        <TouchableOpacity style={styles.btn_login}>
-                            <Text style={styles.text_btn_login}>S'inscrire</Text>
+                        <TouchableOpacity style={styles.btn_login} onPress={() => register()}>
+                            { loading ? (<ActivityIndicator size='small' color='#FFFFFF' />) :  <Text style={styles.text_btn_login}>S'inscrire</Text>}
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.terms_section, { marginBottom: 40 }]}>
@@ -138,6 +185,7 @@ const styles = StyleSheet.create({
     main_container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
+        // marginBottom: 20,
     },
     logo: {
         width: 200,
@@ -165,6 +213,10 @@ const styles = StyleSheet.create({
         paddingTop: 40, // to verify
         justifyContent: 'center',
         marginHorizontal: 20,
+    },
+    text_error: {
+        textAlign: 'center',
+        color: 'red',
     },
     text_input: {
         borderWidth: 0.5,
