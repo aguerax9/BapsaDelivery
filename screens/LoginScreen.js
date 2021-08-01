@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     Alert,
@@ -28,6 +28,14 @@ const LoginScreen = ({navigation}) => {
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            setError(false);
+            setEmail('');
+            setPwd('');
+        });
+    }, []);
 
     const login = (email, pwd) => {
         if (email.length != 0 && pwd.length != 0) { // needed for android version
