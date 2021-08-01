@@ -62,7 +62,10 @@ const SignupScreen = ({navigation}) => {
     }
 
     return(
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
+        <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === 'ios' ? 'padding' : ''}
+        >
             <ScrollView style={styles.main_container}>
                 <View style={styles.header}>
                     <Image 
