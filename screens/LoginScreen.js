@@ -23,7 +23,6 @@ const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [showPwd, setShowPwd] = useState(false);
-    const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const { login } = useContext(AuthContext);
 
@@ -45,7 +44,7 @@ const LoginScreen = ({navigation}) => {
                     <TextInput 
                         style={[styles.text_input, { marginTop: 20 }]}
                         placeholder="Mot de passe"
-                        secureTextEntry={showPwd ? 'none' : secureTextEntry}
+                        secureTextEntry={showPwd ? false : true}
                         autoCapitalize='none'
                     />
                     <View style={styles.btn_display_pwd}>
