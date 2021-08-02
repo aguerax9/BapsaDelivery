@@ -1,11 +1,14 @@
 
 import React from 'react';
 import {
+  LogBox,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+
+LogBox.ignoreLogs(['Reanimated 2']);
 
 import Provider from './navigation/index';
 
