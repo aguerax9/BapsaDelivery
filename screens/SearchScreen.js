@@ -8,33 +8,33 @@ import {
     View, 
 } from 'react-native';
 
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 import { AuthContext } from '../navigation/AuthProvider';
+
+import DrinkScreen from './DrinkScreen';
+
+const Tab = createMaterialTopTabNavigator();
+
+const MenuTab = () => {
+    return(
+        <Tab.Navigator>
+            <Tab.Screen name="Biere" component={DrinkScreen} />
+            <Tab.Screen name="Whisky" component={DrinkScreen} />
+            <Tab.Screen name="Vodka" component={DrinkScreen} />
+            <Tab.Screen name="Soda" component={DrinkScreen} />
+        </Tab.Navigator>
+    );
+}
 
 const SearchScreen = () => {
 
     const { user, logout } = useContext(AuthContext);
-    const [beerColor, setBeerColor] = useState('');
-    const [whiskyColor, setWhiskyColor] = useState('');
-    const [vodkaColor, setVodkaColor] = useState('');
-    const [sodaColor, setSodaColor] = useState('');
 
     return(
-        <ScrollView style={styles.main_container}>
-            <View style={styles.menu_section}>
-                <TouchableOpacity>
-                    <Text style={styles.text_menu_item}>Bière</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.text_menu_item}>Whisky</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.text_menu_item}>Vodka</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.text_menu_item}>Soda</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+        <View style={styles.main_container}>
+            <MenuTab />
+        </View>
     );
 }
 
