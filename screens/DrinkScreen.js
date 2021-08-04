@@ -1,26 +1,34 @@
 import React, { useContext } from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { AuthContext } from '../navigation/AuthProvider';
+import bieres from '../helpers/DrinkData';
+
+import DrinkItem from '../components/DrinkItem';
 
 const DrinkScreen = () => {
 
     const { user, logout } = useContext(AuthContext);
 
     return(
-        <ScrollView contentContainerStyle={{flex: 1, backgroundColor: '#FFFFFF'}}>
-            <View style={styles.main_container}>
-                <Text>All drinks</Text>
-            </View>
-        </ScrollView>
+        <View style={styles.main_container}>
+            <FlatList 
+                data={bieres}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item}) => <DrinkItem film={item} />}
+            />
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        //justifyContent: 'center',
+        // alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        paddingTop: 10,
+        paddingHorizontal: 5,
     },
 });
 
