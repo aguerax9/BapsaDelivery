@@ -5,10 +5,11 @@ export default class DrinkItem extends React.Component {
 
     render() {
         const { film } = this.props;
+        console.log(film.poster_path)
         return(
             <TouchableOpacity style={styles.main_container} onPress={() => {}}>
                 <Image style={styles.image} 
-                    // source={{uri: getImageFromApi(film.poster_path)}} 
+                        source={film.poster_path}
                 />
                 <View style={styles.info_container}>
                     <View style={styles.header_container}>
