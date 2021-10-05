@@ -30,16 +30,6 @@ const SearchStackScreen = () => {
             <SearchStack.Screen 
                 name="Recherche" 
                 component={SearchScreen} 
-                options={{
-                    headerTitle: '',
-                    headerRight: () => (
-                        <TouchableOpacity
-                            style={{marginRight: 10}}
-                        >
-                            <Feather name="search" size={25} />
-                        </TouchableOpacity>
-                    )
-                }}
             />
         </SearchStack.Navigator>
     );

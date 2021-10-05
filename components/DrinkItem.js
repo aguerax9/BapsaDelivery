@@ -4,25 +4,31 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default class DrinkItem extends React.Component {
 
     render() {
-        const { film } = this.props;
+        const drink = this.props.drink;
         return(
-            <TouchableOpacity style={styles.main_container} onPress={() => {}}>
-                <Image style={styles.image} 
-                        source={film.poster_path}
+            <View style={styles.main_container}>
+                <Image 
+                    style={styles.image}
+                    source={drink.poster_path}
                 />
-                <View style={styles.info_container}>
+                <View style={styles.content_container}>
                     <View style={styles.header_container}>
-                        <Text style={styles.title_text}>{film.name}</Text>
-                        <Text style={styles.vote_text}>{film.degre}</Text>
+                        <Text style={styles.name_text}>{drink.name}</Text>
+                        <Text style={styles.degre_text}>{drink.degre}%</Text>
                     </View>
                     <View style={styles.description_container}>
-                        <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
+                        <Text
+                            style={styles.description_text}
+                            numberOfLines={6}
+                        >
+                            {drink.overview}
+                        </Text>
                     </View>
-                    <View style={styles.date_container}>
-                        <Text style={styles.date_text}>{film.brasseur}</Text>
+                    <View style={styles.owner_container}>
+                        <Text style={styles.owner_text}>{drink.brasseur}</Text>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </View>
         );
     }
 }
@@ -31,49 +37,44 @@ const styles = StyleSheet.create({
     main_container: {
         height: 200,
         flexDirection: 'row',
-        marginBottom: 5,
     },
     image: {
-        height: 200,
+        height: 190,
         width: 120,
-        backgroundColor: 'gray',
+        // backgroundColor: 'gray',
     },
-    info_container: {
+    content_container: {
         flex: 1,
-        padding: 5,
+        margin: 5,
+        paddingLeft: 5,
+        backgroundColor: '#F4F4F4',
     },
     header_container: {
         flex: 3,
         flexDirection: 'row',
     },
-    title_text: {
+    name_text: {
         flex: 1,
         flexWrap: 'wrap',
         fontWeight: 'bold',
         fontSize: 20,
     },
-    vote_text: {
+    degre_text: {
         fontWeight: 'bold',
-        fontSize: 26,
+        fontSize: 24,
         color: '#666666',
     },
     description_container: {
         flex: 7,
     },
     description_text: {
-        fontSize: 15,
         fontStyle: 'italic',
         color: '#666666',
     },
-    date_container: {
-        flex: 1,
+    owner_container: {
+        flex: 2,
     },
-    date_text: {
+    owner_text: {
         textAlign: 'right',
     },
-    favorite_image: {
-        height: 25,
-        width: 25,
-        marginRight: 5,
-    }
 });

@@ -1,40 +1,46 @@
 import React, { useContext, useState } from 'react';
 import { 
-    Button, 
+    Button,
+    FlatList,
     ScrollView, 
     StyleSheet, 
     Text, 
+    TextInput, 
     TouchableOpacity, 
     View, 
 } from 'react-native';
 
-import { AuthContext } from '../navigation/AuthProvider';
+import drinks from '../helpers/DrinkData';
+import DrinkItem from '../components/DrinkItem';
 
-import DrinkScreen from './DrinkScreen';
-
-const SearchScreen = () => {
-
-    const { user, logout } = useContext(AuthContext);
-
-    return(
-        <View style={styles.main_container}>
-            <DrinkScreen />
-        </View>
-    );
+class SearchScreen extends React.Component {
+    render() {
+        return(
+            <View style={styles.main_container}>
+                <TextInput style={styles.textinput} placeholder="Nom de la boisson" />
+                <Button title="Rechercher" onPress={() => {}} />
+                <FlatList
+                    data={drinks}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => <DrinkItem drink={item} />}
+                />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        marginTop: 40,
     },
-    menu_section: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingTop: 30, // to verify
-    },
-    text_menu_item: {
-        fontWeight: 'bold',
+    textinput: {
+        marginLeft: 5,
+        marginRight: 5,
+        paddingLeft: 5,
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#000000',
     }
 });
 

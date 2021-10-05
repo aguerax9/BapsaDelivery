@@ -11,10 +11,11 @@ import {
 LogBox.ignoreLogs(['Reanimated 2']);
 
 import Provider from './navigation/index';
+import SearchScreen from './screens/SearchScreen';
 
 const App = () => {
   return (
-    <Provider />
+    <SearchScreen />
   );
 }
 
