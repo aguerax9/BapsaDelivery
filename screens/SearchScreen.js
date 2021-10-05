@@ -9,11 +9,22 @@ import {
     TouchableOpacity, 
     View, 
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
 import drinks from '../helpers/DrinkData';
 import DrinkItem from '../components/DrinkItem';
 
 class SearchScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getUser();
+    }
+
+    getUser = async () => {
+        const user = firestore().collection("users").doc("WMPeFUootudSpC8kTZq5").get();
+        console.log(user);
+    }
+
     render() {
         return(
             <View style={styles.main_container}>
