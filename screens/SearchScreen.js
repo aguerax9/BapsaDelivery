@@ -8,36 +8,9 @@ import {
     View, 
 } from 'react-native';
 
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 import { AuthContext } from '../navigation/AuthProvider';
 
 import DrinkScreen from './DrinkScreen';
-
-const Tab = createMaterialTopTabNavigator();
-
-const MenuTab = () => {
-    return(
-        <Tab.Navigator
-            tabBarOptions={{
-                activeTintColor: '#C0392B',
-                inactiveTintColor: '#000000',
-                indicatorStyle: {
-                    backgroundColor: '#C0392B',
-                },
-                labelStyle: styles.text_menu_item,
-            }}
-        >
-            <Tab.Screen 
-                name="Biere" 
-                component={DrinkScreen}
-            />
-            <Tab.Screen name="Whisky" component={DrinkScreen} />
-            <Tab.Screen name="Vodka" component={DrinkScreen} />
-            <Tab.Screen name="Soda" component={DrinkScreen} />
-        </Tab.Navigator>
-    );
-}
 
 const SearchScreen = () => {
 
@@ -45,7 +18,7 @@ const SearchScreen = () => {
 
     return(
         <View style={styles.main_container}>
-            <MenuTab />
+            <DrinkScreen />
         </View>
     );
 }
